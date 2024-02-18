@@ -1,0 +1,17 @@
+﻿@model IEnumerable<DanhMuc>
+    <a class="navbar-category-wrap btn d-flex justify-content-between align-items-center bg-primary" data-bs-toggle="collapse" data-bs-target="#collapseNavbar" aria-expanded="false" aria-controls="collapseNavbar">
+        <h6>
+            <i class="fas fa-bars me-2"></i>
+            Danh mục
+        </h6>
+        <i class="fas fa-angle-down"></i>
+    </a>
+        <nav class="navbar-category navbar-light bg-light position-absolute collapse" id="collapseNavbar">
+                @foreach (var item in Model)
+                {
+ 
+                    <div class="navbar-nav w-100">
+            <a asp-controller="Home" asp-action="PhongTheoLoai" asp-route-mahang="@item.MaDanhMuc" class="nav-item nav-link">@item.TenDanhMuc</a>
+                    </div>
+                }
+                </nav>

@@ -1,0 +1,126 @@
+﻿
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@model sieunhanz.Models.DonDatUser1
+
+@{
+    ViewData["Title"] = "DatHang";
+    Layout = "~/Views/Shared/_LayoutWeb.cshtml";
+}
+
+<h1>DatHang</h1>
+
+<h4>DonDatUser1</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        </div>
+    <div class="col-md-4">
+        <form method="post" asp-action="DatHang">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <h3>Sản Phẩm</h3>
+                <input asp-for="Cmt" class="form-control avoi1" />
+                <span asp-validation-for="Cmt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h3>gmail</h3>
+                <input asp-for="HoTen" class="form-control" />
+                <span asp-validation-for="HoTen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h3>Họ Tên</h3>
+                <input asp-for="Sdt" class="form-control" />
+                <span asp-validation-for="Sdt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="TrangThai" class="form-control" value="0" />
+                <span asp-validation-for="TrangThai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="TongTien" class="form-control avoi" />
+                <span asp-validation-for="TongTien" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="TenTaiKhoan" class="form-control" value="@Accessor.HttpContext.Session.GetString("UserName")" />
+                <span asp-validation-for="TenTaiKhoan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input class="voice"  type="submit" value="Đặt Hàng" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <div class="col-sm-6 col-lg-6 mb-3">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="shipping-method-box">
+                        <div class="title-left">
+                            <h3>Vận Chuyển</h3>
+                        </div>
+                        <div class="mb-4">
+                            <div class="custom-control custom-radio">
+                                Vận Chuyển FREE
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12">
+                    <div class="order-box">
+                        <div class="title-left">
+                            <h3>Sản Phẩm Mua</h3>
+                        </div>
+                        <div class="d-flex">
+                            <div class="font-weight-bold">Sản Phầm</div>
+                            <div class="ml-auto font-weight-bold">Giá</div>
+                        </div>
+                        <hr class="my-1">
+                        <div class="order-products">
+                        </div>
+                        <hr>
+                        <hr class="my-1">
+                        <div class="gr-total">
+                            <h5>Tổng Tiền</h5>
+                            <div class="ml-auto h5"><strong class="order-total">0</strong></div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script>
+    const showProductSelected = () => {
+        let selectedProductsJson = sessionStorage.getItem('selectedProducts');
+        let totalPrice = sessionStorage.getItem("totalPrice");
+        let selectedProducts = JSON.parse(selectedProductsJson);
+        let str = ``;
+        for (let product of selectedProducts) {
+            str += `<div class="d-flex">
+                                    <h4>${product.tenHang}</h4>
+                                    <div class="ml-auto font-weight-bold">${product.donGia}</div>
+                                </div>`
+        }
+        $(".order-products").html(str);
+        $(".order-total").text(totalPrice);
+
+        // lấy giá ấn vào ô có class là avoi
+        $(".avoi").val(totalPrice);
+
+        // lấy sản phẩm ghi vào ô có class là avoi1
+        let productsStr = selectedProducts.map(p => p.tenHang).join(', ');
+        $(".avoi1").val(productsStr);
+    }
+    $(document).ready(function () {
+        showProductSelected();
+        $(".voice").click(function () {
+            alert("Đặt hàng thành công");
+        });
+    });
+</script>
+
+

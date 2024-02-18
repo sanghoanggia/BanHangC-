@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewData["Title"] = "SanPham";
+    Layout = "~/Views/Shared/_LayoutWeb.cshtml";
+}
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<Hang>
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Shop</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Shop</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start Shop Page  -->
+    <div class="shop-box-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
+                    <div class="right-product-box">
+                        <div class="product-item-filter row">
+                        <div class="col-12 col-sm-8 text-center text-sm-left">
+                        </div>
+                            <div class="col-12 col-sm-4 text-center text-sm-right">
+                                <ul class="nav nav-tabs ml-auto">
+                                    <li>
+                                        <a class="nav-link active" href="#grid-view" data-toggle="tab"> <i class="fa fa-th"></i> </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" href="#list-view" data-toggle="tab"> <i class="fa fa-list-ul"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="product-categorie-box">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+                                <div class="row" id="displayProducts">
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="col-lg-3 col-md-6 special-grid best-seller">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <div class="type-lb">
+                                                        <p class="sale">Sale</p>
+                                                    </div>
+                                                    <img src="../../ProductsImages/@item.AnhDaiDien" class="img-fluid" style="height:200px" alt="Image">
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
+                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                        </ul>
+                                                        <a class="cart" style="cursor:pointer" onclick="handleToAddToCat()">Add to Cart</a>
+                                                    </div>
+                                                </div>
+                                                <div class="why-text">
+                                                    <h4><a class="cb-id" value="@item.MaHang" href="product/@item.MaHang">@item.TenHang</a></h4>
+                                                    <h5>$@item.DonGiaBan</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="row product__pagination">
+                                    @Html.PagedListPager(Model,page=>Url.Action("SanPham",new {page=page}),new
+                                    X.PagedList.Web.Common.PagedListRenderOptions(){
+                                    LiElementClasses=new List<String> {"page-item"},
+                                    PageClasses=new List<String> {"page-link"}
+                                    })
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				@await Component.InvokeAsync("LoaiSpMenu")
+            </div>
+        </div>
+    </div>
+    <!-- End Shop Page -->
+<script>
+    function handleToAddToCat() {
+        let quantity = 1;
+        console.log(quantity);
+        $(".cb-id").each(function () {
+            let productId = $(this).val();
+        })
+        if (productId == null || quantity == null) {
+            return;
+        }
+        let cartPostUrl = `https://localhost:7223/api/cartapi?mahang=${productId}&quantity=${quantity}`;
+        $.ajax({
+            type: "POST",
+            url: cartPostUrl,
+            dataType: 'json',
+            contentType: "application/json",
+            success: () => {
+                alert("Thêm vào giỏ hàng thành công");
+            },
+            Error: function (xhr) {
+                alert(xhr.responseText)
+            }
+        });
+    }
+</script>

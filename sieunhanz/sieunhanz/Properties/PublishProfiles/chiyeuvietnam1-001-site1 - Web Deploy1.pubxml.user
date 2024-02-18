@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAANh2bqyb+Z0aghp2ZZKPoXwAAAAACAAAAAAAQZgAAAAEAACAAAABgwOdQVSrGcU6daBHvWs5TdO+Ck/epsIfO0Ooa1t2vYQAAAAAOgAAAAAIAACAAAAAhWeOrkJvDd8iU8YkhCcNOfeZEIMhcmsZB9o1iZD22aCAAAADiUqnM5vTQ8rOjrHSc0K7eIMaR6HvRFVKKuWVie18xeEAAAAB2HTKs/H/CxZhhez88Q3fiZtDybj2JODZtHinkCUaGLFOYhoUMtgU7xfbTh2uWYA4ysPzfSK9OD2pCTVnlSM6y</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <EFMigrations Include="sieunhanz.Models.MovieWebContext">
+      <Value>
+      </Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

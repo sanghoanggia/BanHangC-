@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutWeb.cshtml";
+}
+<!-- Categories -->
+<div class="container-fluid pt-5">
+    <h2 class="title position-relative text-dark text-uppercase mx-xl-5 mb-4">
+        <span class="bg-secondary pe-3">Hãng ĐIỆN THOẠI</span>
+    </h2>
+    <div class="row px-xl-5 pb-3">
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <a href="#">
+                <div class="category-item mb-4">
+                    <div class="category-item__img">
+                        <img class="img-fluid" src="../Layout1/assets/img/samsung.jfif">
+                    </div>
+                    <div class="category-item__info">
+                        <h6>Điện Thoại SAMSUNG</h6>
+                        <small>Hãng điện thoại đến từ Hàn Quốc</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <a href="#">
+                <div class="category-item mb-4">
+                    <div class="category-item__img">
+                        <img class="img-fluid" src="../Layout1/assets/img/apple.jfif">
+                    </div>
+                    <div class="category-item__info">
+                        <h6>APPLE</h6>
+                        <small>Đẳng cấp sang trọng</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <a href="#">
+                <div class="category-item mb-4">
+                    <div class="category-item__img">
+                        <img class="img-fluid" src="../Layout1/assets/img/xoaimi.jfif">
+                    </div>
+                    <div class="category-item__info">
+                        <h6>XIAOMI</h6>
+                        <small>Điện thoại tốt giá rẻ</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <a href="#">
+                <div class="category-item mb-4">
+                    <div class="category-item__img">
+                        <img class="img-fluid" src="../Layout1/assets/img/oppo.jfif">
+                    </div>
+                    <div class="category-item__info">
+                        <h6>OPPO</h6>
+                        <small>Camera chất trong mọi khoảng giá</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<Hang>
+
+<div class="container-fluid pt-5 pb-3">
+    <h2 class="title position-relative text-dark text-uppercase mx-xl-5 mb-4">
+        <span class="bg-secondary pe-3">Các Dòng Sản Phẩm</span>
+    </h2>
+    <div class="row px-xl-5">
+        <div id="displayProducts">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <div class="product-item bg-light mb-4">
+                    <div class="product-img">
+            <img class="w-100" src="../../ProductsImages/@item.AnhDaiDien">
+                    </div>
+                    <div class="text-center py-4 product-info">
+                    <h4><a class="cb-id" value="@item.MaHang" href="product/@item.MaHang">@item.TenHang</a></h4>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <h5>@item.DonGiaBan $</h5>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                            <small class="fa fa-star text-primary me-1"></small>
+                            <small class="fa fa-star text-primary me-1"></small>
+                            <small class="fa fa-star text-primary me-1"></small>
+                            <small class="fa fa-star text-primary me-1"></small>
+                            <small class="fa fa-star text-primary me-1"></small>
+                            <small>(Sốc)</small>
+                        </div>
+                     <div>
+                        <span class="cb5ebe3ffb">
+                            <button aria-expanded="true" type="button" class="fc63351294 a822bdf511 d4b6b7a9e7 f7db01295e c334e6f658 f4605622ad" fdprocessedid="siqoz2" aria-describedby=":R1b4pip:">
+                                            <span class="e57ffa4eb5"><a class="cb-id" href="product/@item.MaHang">Đặt Ngay</a></span>
+                            </button>
+                        </span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            }
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="row product__pagination">
+            @Html.PagedListPager(Model,page=>Url.Action("Index",new {page=page}),new
+            X.PagedList.Web.Common.PagedListRenderOptions(){
+            LiElementClasses=new List<String> {"page-item"},
+            PageClasses=new List<String> {"page-link"}
+            })
+        </div>
+
+ 
+<!-- End Blog  -->
+<script>
+    function handleToAddToCar() {
+        let quantity = 1;
+        console.log(quantity);
+        $(".cb-id").each(function () {
+            let productId = $(this).val();
+        })
+        if (productId == null || quantity == null) {
+            return;
+        }
+        let cartPostUrl = `https://localhost:7223/api/cartapi?mahang=${productId}&quantity=${quantity}`;
+        $.ajax({
+            type: "POST",
+            url: cartPostUrl,
+            dataType: 'json',
+            contentType: "application/json",
+            success: () => {
+                alert("Thêm vào giỏ hàng thành công");
+            },
+            Error: function (xhr) {
+                alert(xhr.responseText)
+            }
+        }); 
+    }
+</script>
+

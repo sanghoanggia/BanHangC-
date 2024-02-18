@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutWeb.cshtml";
+}
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<Hang>
+
+     @foreach (var item in Model)
+{
+    if(@item.MaDanhMuc == "DM01")
+    {
+        <h1>ĐIỆN THOẠI SAMSUNG</h1>
+        <br/>
+        <br/>
+        break;
+    }
+    if (@item.MaDanhMuc == "DM02")
+    {
+        <h1>ĐIỆN THOẠI APPLE</h1>
+        <br />
+        <br />
+        break;
+    }
+     if(@item.MaDanhMuc == "DM03")
+    {
+        <h1>ĐIỆN THOẠI XIAOMI</h1>
+        <br />
+        <br />
+        break;
+    }
+     if(@item.MaDanhMuc == "DM04")
+    {
+        <h1>ĐIỆN THOẠI OPPO</h1>
+        <br />
+        <br />
+        break;
+    }
+     if(@item.MaDanhMuc == "DM05")
+    {
+        <h1>ĐIỆN THOẠI LG</h1>
+        <br />
+        <br />
+        break;
+    }
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <div class="product-item bg-light mb-4">
+                <div class="product-img">
+                    <img class="w-100" src="../../ProductsImages/@item.AnhDaiDien">
+                </div>
+                <div class="text-center py-4 product-info">
+                    <h4><a class="cb-id" value="@item.MaHang" href="product/@item.MaHang">@item.TenHang</a></h4>
+                    <div class="d-flex align-items-center justify-content-center mt-2">
+                        <h5>@item.DonGiaBan $</h5>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center mb-1">
+                        <small class="fa fa-star text-primary me-1"></small>
+                        <small class="fa fa-star text-primary me-1"></small>
+                        <small class="fa fa-star text-primary me-1"></small>
+                        <small class="fa fa-star text-primary me-1"></small>
+                        <small class="fa fa-star text-primary me-1"></small>
+                        <small>(Sốc)</small>
+                    </div>
+                    <div>
+                        <span class="cb5ebe3ffb">
+                            <button aria-expanded="true" type="button" class="fc63351294 a822bdf511 d4b6b7a9e7 f7db01295e c334e6f658 f4605622ad" fdprocessedid="siqoz2" aria-describedby=":R1b4pip:">
+                                <span class="e57ffa4eb5"><a asp-action="DatHangKhach1">Đặt Ngay</a></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row product__pagination">
+    @Html.PagedListPager(Model,page=>Url.Action("Index",new {page=page}),new
+    X.PagedList.Web.Common.PagedListRenderOptions(){
+    LiElementClasses=new List<String> {"page-item"},
+    PageClasses=new List<String> {"page-link"}
+    })
+</div>
+
+<!-- End Blog  -->
+<script>
+    function handleToAddToCar() {
+        let quantity = 1;
+        console.log(quantity);
+        $(".cb-id").each(function () {
+            let productId = $(this).val();
+        })
+        if (productId == null || quantity == null) {
+            return;
+        }
+        let cartPostUrl = `https://localhost:7223/api/cartapi?mahang=${productId}&quantity=${quantity}`;
+        $.ajax({
+            type: "POST",
+            url: cartPostUrl,
+            dataType: 'json',
+            contentType: "application/json",
+            success: () => {
+                alert("Thêm vào giỏ hàng thành công");
+            },
+            Error: function (xhr) {
+                alert(xhr.responseText)
+            }
+        });
+    }
+</script>
+

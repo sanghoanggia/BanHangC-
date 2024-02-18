@@ -1,0 +1,59 @@
+﻿@model IEnumerable<sieunhanz.Models.KhachHang>
+
+@{
+    ViewData["Title"] = "thongtinkhach";
+    Layout = "~/Views/Shared/_LayoutWeb.cshtml";
+}
+
+<h1>tThông tin của bạn</h1>
+
+<p>
+    <a asp-action="Create">Thêm Thông tin</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenKh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sdt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenTaiKhoan)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenKh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sdt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenTaiKhoan)
+            </td>
+            <td>
+                    <a asp-action="SuaThongTinKhach" asp-route-id="@item.MaKh">Sửa</a> |
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
