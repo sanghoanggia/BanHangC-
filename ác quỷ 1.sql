@@ -599,7 +599,7 @@ INSERT [dbo].[PhieuXuatKho] ([MaPXK], [NgayXuat], [MaNV]) VALUES (N'PXK01', CAST
 GO
 INSERT [dbo].[TaiKhoan] ([TenTK], [MatKhau], [MaBaoMat], [MaNV]) VALUES (N'nv01x', N'123', N'123', N'NV01')
 GO
-INSERT [dbo].[TaiKhoanUser] ([TenTaiKhoan], [MatKhau]) VALUES (N'manh123', N'123')
+INSERT [dbo].[TaiKhoanUser] ([TenTaiKhoan], [MatKhau]) VALUES (N'sang123', N'123')
 GO
 ALTER TABLE [dbo].[Anh]  WITH CHECK ADD  CONSTRAINT [fk_anh_hang] FOREIGN KEY([maHang])
 REFERENCES [dbo].[Hang] ([MaHang])
